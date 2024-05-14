@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Search Diseases
+{% endblock %}
+
+{% block content %}
+<h1>Search Diseases</h1>
+<form action="{% url 'index' %}" method="POST">
+    {% csrf_token %}
+    <input class="form-control m-2" type="text" name="search_query" placeholder="Enter Disease Name or Symptoms.....">
+    <button class="btn btn-outline-success float-right" type="submit">Search</button>
+</form>
+{% if recommendations %}
+<h2>Top 5 Recommendations:</h2>
+<table border="1" class="table-dark mb-5">
+    <thead>
+        <tr>
+            <th>Disease Name</th>
+            <th>Symptoms</th>
+            <th>Precautions</th>
+            <th>Doctor Name</th>
+            <th>Doctor Advice</th>
+            <th>Doctor Phone</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for disease in recommendations %}
+        <tr>
+            <td>{{ disease.disease_name }}</td>
+            <td>{{ disease.symptoms }}</td>
+            <td>{{ disease.precautions }}</td>
+            {% if disease.doctorinfo_set.all %}
+            {% for doctor_info in disease.doctorinfo_set.all %}
+            <td>{{ doctor_info.doctor_name }}</td>
+            <td>{{ doctor_info.doctor_advice }}</td>
+            <td>{{ doctor_info.doctor_phone }}</td>
+            {% endfor %}
+            {% else %}
+            <td colspan="3">کوئی متعلقہ معلومات دستیاب نہیں۔</td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% endblock %}

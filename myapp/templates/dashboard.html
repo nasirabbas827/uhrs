@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Doctor Dashboard
+{% endblock %}
+
+{% block content %}
+    <h1>Welcome to Your Dashboard, {{ user.name }}</h1>
+    <h2>Diseases:</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Disease ID</th>
+                <th>Disease Name</th>
+                <th>Symptoms</th>
+                <th>Precautions</th>
+                <th>Prevention Methods</th>
+                <th>Medication</th>
+                <th>Action</th>  <!-- New column for action buttons -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for disease in diseases %}
+                <tr>
+                    <td>{{ disease.id }}</td>
+                    <td>{{ disease.disease_name }}</td>
+                    <td>{{ disease.symptoms }}</td>
+                    <td>{{ disease.precautions }}</td>
+                    <td>{{ disease.prevention_methods }}</td>
+                    <td>{{ disease.medication }}</td>
+                    <td>
+                        <a href="{% url 'add_doctor_info' %}?disease_id={{ disease.id }}" class="btn btn-primary">Add Doctor Info</a>
+                    </td>  
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

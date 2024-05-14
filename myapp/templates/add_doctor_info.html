@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Add Doctor Information
+{% endblock %}
+
+{% block content %}
+<h1>Add Doctor Information for {{ disease.disease_name }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="disease_id" value="{{ disease.id }}">
+        <label for="doctor_name">Doctor Name:</label><br>
+        <input type="text" id="doctor_name" name="doctor_name"><br>
+        <label for="doctor_phone">Doctor Phone:</label><br>
+        <input type="text" id="doctor_phone" name="doctor_phone"><br>
+        <label for="doctor_advice">Doctor Advice:</label><br>
+        <textarea id="doctor_advice" name="doctor_advice"></textarea><br><br>
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}

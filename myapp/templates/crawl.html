@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Wikipedia Disease Info
+{% endblock %}
+
+{% block content %}
+    <h1>Search for Disease Information</h1>
+    <form action="{% url 'crawl' %}" method="post">
+        {% csrf_token %}
+        <label for="disease_name">Enter Disease Name:</label>
+        <input type="text" id="disease_name" name="disease_name">
+        <button type="submit">Search</button>
+    </form>
+
+    {% if translated_info %}
+    <h2>Crawled Data</h2>
+    <pre>{{ translated_info }}</pre>
+    {% endif %}
+{% endblock %}
